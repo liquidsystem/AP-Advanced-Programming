@@ -86,7 +86,6 @@ public class bankTeller {
 		if(noPin == true)
 		{
 			JOptionPane.showMessageDialog(null,"It apppears that you have entered a pin that does not exist in our database. Try again.");
-			pin = 0;
 			preCheck();
 		}
 		
