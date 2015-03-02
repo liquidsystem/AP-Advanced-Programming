@@ -8,13 +8,13 @@ public class division {
 	public static int numerator = 0;
 	public static int denominator = 0;
 	
-	public static int get_Num()
+	public static int getNum()
 	{
 		int numerator = (Math.abs(gen.nextInt()%ENDING_NUMBER) + STARTING_NUMBER);
 		return numerator;
 	}
 	
-	public static int get_Den()
+	public static int getDen()
 	{
 		int denominator = (Math.abs(gen.nextInt()%ENDING_NUMBER) + STARTING_NUMBER);
 		return denominator;
@@ -30,8 +30,8 @@ public class division {
 	
 	public static void main(String[] args) {
 		// Initialization of variables
-		int numerator = get_Num();
-		int denominator = get_Den();
+		int numerator = getNum();
+		int denominator = getDen();
 		int whole = 0;
 		int old_num=0; 
 		int old_den=0; 
@@ -42,6 +42,7 @@ public class division {
 		old_den = denominator;
 		
 		whole = numerator/denominator;
+		numerator%=denominator;
 		numerator/=gcd;
 		denominator/=gcd;
 		

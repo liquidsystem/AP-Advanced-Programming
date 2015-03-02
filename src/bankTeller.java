@@ -31,7 +31,11 @@ public class bankTeller {
 		boolean invalid_format = true;
 		while(invalid_format)
 		{
-			String input = JOptionPane.showInputDialog("Please enter your Personal Identification Number");
+			String input = JOptionPane.showInputDialog("Please enter your Personal Identification Number","Enter your PIN");
+			if(input==null)
+			{
+				System.exit(0);
+			}
 			try
 			{
 				pin = Integer.parseInt(input);
@@ -39,11 +43,7 @@ public class bankTeller {
 			}
 			catch(NumberFormatException e)
 			{
-				JOptionPane.showMessageDialog(null,"I'm sorry, but it appears you did not enter a pin in the form of an integer.");
-			}
-			catch(NullPointerException e)
-			{
-				System.exit(0);
+				JOptionPane.showMessageDialog(null,"I'm sorry, but it appears you did not enter a pin in the form of an integer.","Error",JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		setPin(pin);
@@ -56,17 +56,18 @@ public class bankTeller {
 	
 	public static void welcome()
 	{
-		JOptionPane.showMessageDialog(null,"Good day! Welcome to the Bank of Middleton");
+		JOptionPane.showMessageDialog(null,"Good day! Welcome to the Bank of Middleton","Welcome!",JOptionPane.PLAIN_MESSAGE);
 	}
 	
 	public static void preCheck()
 	{
+		getPin();
 		boolean noPin = false;
 		int i = 0;
 		int[] users = getUsersList();
 		double account_balance = 0.0;
 		double[] balance = getBalanceList();
-		JOptionPane.showMessageDialog(null,"Thank you for entering your pin, please hold while we check to see if your pin is correct...");
+		JOptionPane.showMessageDialog(null,"Thank you for entering your pin, please hold while we check to see if your pin is correct...","Please Wait...",JOptionPane.PLAIN_MESSAGE);
 		
 		
 		
@@ -85,11 +86,12 @@ public class bankTeller {
 		}
 		if(noPin == true)
 		{
-			JOptionPane.showMessageDialog(null,"It apppears that you have entered a pin that does not exist in our database. Try again.");
+			JOptionPane.showMessageDialog(null,"It apppears that you have entered a pin that does not exist in our database. Try again.","Error",JOptionPane.ERROR_MESSAGE);
 			preCheck();
 		}
 		
 			setBalance(account_balance);
+			createGUI();
 	}
 	
 	public static void setBalance(double a)
@@ -100,22 +102,26 @@ public class bankTeller {
 	public static void createGUI()
 	{
 		Object[] choices = {"Deposit","Withdraw","Go Back"};
-		int choice = JOptionPane.showOptionDialog(null,"Hello! What would you like to do with your account?"+"\nYour current balance is: "+account_balance,"Account",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,choices,choices[0]);
+		int choice = JOptionPane.showOptionDialog(null,"Hello! What would you like to do with your account?"+"\nYour current balance is: $"+account_balance,"Account",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,choices,choices[0]);
 		if(choice==0) // User has chosen deposit
 		{
 			deposit(account_balance);
-			JOptionPane.showMessageDialog(null,"Your new balance: $"+account_balance);
+			JOptionPane.showMessageDialog(null,"Your new balance: $"+account_balance,"Balance",JOptionPane.PLAIN_MESSAGE);
 		}
 		else if(choice==1)
 		{
 			withdraw(account_balance);
-			JOptionPane.showMessageDialog(null,"Your new balance is: $"+account_balance);
+			JOptionPane.showMessageDialog(null,"Your new balance is: $"+account_balance,"Balance",JOptionPane.PLAIN_MESSAGE);
 		}
 		else if(choice==2)
 		{
 			account_balance = 0;
 			pin = 0;
 			preCheck();
+		}
+		else
+		{
+			System.exit(0);
 		}
 		
 	}
@@ -132,7 +138,7 @@ public class bankTeller {
 		double removeMoney=checkNumber(user_input,"remove");
 		if(removeMoney > account_balance)
 		{
-			JOptionPane.showMessageDialog(null,"I'm sorry, but you cannot withdraw more than you have in your account");
+			JOptionPane.showMessageDialog(null,"I'm sorry, but you cannot withdraw more than you have in your account","Error",JOptionPane.ERROR_MESSAGE);
 			withdraw(account_balance);
 		}
 		else
@@ -147,7 +153,7 @@ public class bankTeller {
 		double changeMoney = 0;
 		while(invalid)
 		{
-			String input = JOptionPane.showInputDialog("How much money would you like to "+ addOrRemove +" to your account?");
+			String input = JOptionPane.showInputDialog(null, "How much money would you like to "+ addOrRemove +" to your account?",addOrRemove+" Money",JOptionPane.PLAIN_MESSAGE);
 			try
 			{
 				changeMoney = Double.parseDouble(input);
@@ -155,7 +161,7 @@ public class bankTeller {
 			}
 			catch(NumberFormatException e)
 			{
-				JOptionPane.showMessageDialog(null,"Sorry, you did not enter a proper number.");
+				JOptionPane.showMessageDialog(null,"Sorry, you did not enter a proper number.","Error",JOptionPane.ERROR_MESSAGE);
 			}	
 		}
 		
@@ -168,7 +174,6 @@ public class bankTeller {
 		// TODO Auto-generated method stub
 		welcome();
 		preCheck();
-		createGUI();
 	}
 
 }
