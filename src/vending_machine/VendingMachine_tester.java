@@ -1,14 +1,12 @@
 package vending_machine;
 
-public class VendingMachine_tester {
-	
-	public void createGUI()
-	{
-		
-	}
+import javax.swing.JFrame;
 
+public class VendingMachine_tester {
+
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
 		VendingMachine tester = new VendingMachine();
 		tester.getFoodsAndPrices();
 		tester.addOrChangeItem(0,0,"ayy",2.00);
@@ -20,6 +18,7 @@ public class VendingMachine_tester {
 		emptyTester.getMoneyEntered();
 		emptyTester.chooseFood(0,0);
 		emptyTester.getMoneyEntered();
+
 	}
 
 }
