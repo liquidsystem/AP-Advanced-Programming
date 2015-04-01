@@ -10,9 +10,9 @@ public class Rational {
 	public int wholeNumber;
 
 
-	/**
-	 * @param n
-	 * @param d
+	/** Creates a rational object with a pre-specified numerator/denominator from the user
+	 * @param n - Integer to be assigned as the numerator
+	 * @param d - Integer to be assigned as the denominator
 	 */
 	Rational(int n, int d)
 	{
@@ -27,10 +27,10 @@ public class Rational {
 	}
 
 	//Methods
-	/**
-	 * @param n
-	 * @param d
-	 * @return
+
+	/** Adds rational 'a' to rational 'b'
+	 * @param b - A rational that will be added to rational 'a'
+	 * @return Returns new object of rational a+b
 	 */
 	Rational add(Rational b)
 	{
@@ -40,10 +40,9 @@ public class Rational {
 		return new Rational(n, d);
 	}
 
-	/**
-	 * @param n
-	 * @param d
-	 * @return
+	/** Subtracts rational 'a' to rational 'b'
+	 * @param b - A rational that will be subtracted to rational 'a'
+	 * @return Returns new object of rational a-b
 	 */
 	Rational subtract(Rational b)
 	{
@@ -53,10 +52,9 @@ public class Rational {
 		return new Rational(n, d);
 	}
 	
-	/**
-	 * @param n
-	 * @param d
-	 * @return
+	/** Multiply rational 'a' to rational 'b'
+	 * @param b - A rational that will multiply with rational 'a'
+	 * @return Returns new object of rational a*b
 	 */
 	Rational multiply(Rational b)
 	{
@@ -70,7 +68,10 @@ public class Rational {
 	{
 		return new Rational(denominator, numerator);
 	}
-	
+	/** Divide rational 'a' by rational 'b'
+	 * @param b - A rational that will divide rational 'a'
+	 * @return Returns new object of rational a/b
+	 */
 	Rational divide(Rational b)
 	{
 		Rational a = this;
@@ -113,13 +114,16 @@ public class Rational {
 		}
 	}
 	
+	/**
+	 * @return Returns rational as a double
+	 */
 	public double toDouble()
 	{
 		return (double) numerator/denominator;
 	}
 
 	/**
-	 * @return 
+	 * @return Returns the numerator as an integer
 	 */
 	public int getNumerator() 
 	{
@@ -135,7 +139,7 @@ public class Rational {
 	}
 
 	/**
-	 * @return
+	 * @return Returns the denominator as an integer
 	 */
 	public int getDenominator() {
 		return this.denominator;
@@ -151,12 +155,5 @@ public class Rational {
 
 	/**
 	 * @return
-	 */
-	public int getWholeNumber() {
-		return this.wholeNumber;
-	}
-
-	/**
-	 * @param wholeNumber
 	 */
 }

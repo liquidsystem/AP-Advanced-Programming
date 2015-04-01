@@ -10,7 +10,7 @@ public class Guitar
 	static int num_strings = 6;
 	char tuning;
 	
-	Guitar()
+	public Guitar()
 	{
 		brand = " ";
 		make = " ";
@@ -19,7 +19,7 @@ public class Guitar
 		tuning = 'E';
 	}
 	
-	Guitar(String b, String m, String c, char t)
+	public Guitar(String b, String m, String c, char t)
 	{
 		brand = b;
 		make = m;
@@ -28,7 +28,7 @@ public class Guitar
 		tuning = t;
 	}
 	
-	Guitar(String b, String m, String c)
+	public Guitar(String b, String m, String c)
 	{
 		brand = b;
 		make = m;
@@ -37,7 +37,7 @@ public class Guitar
 		tuning = 'E';
 	}
 	
-	Guitar(String b, String m)
+	public Guitar(String b, String m)
 	{
 		brand = b;
 		make = m;
@@ -45,5 +45,52 @@ public class Guitar
 		num_strings = 6;
 		tuning = 'E';
 	}
+
+	@Override
+	public String toString() {
+		return "Guitar [brand=" + brand + ", make=" + make + ", color=" + color
+				+ ", tuning=" + tuning + "]";
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
+	public String getMake() {
+		return make;
+	}
+
+	public void setMake(String make) {
+		this.make = make;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public static int getNum_strings() {
+		return num_strings;
+	}
+
+	public static void setNum_strings(int num_strings) {
+		Guitar.num_strings = num_strings;
+	}
+
+	public char getTuning() {
+		return tuning;
+	}
+
+	public void setTuning(char tuning) {
+		this.tuning = tuning;
+	}
+	
 	
 }

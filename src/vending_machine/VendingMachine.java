@@ -21,7 +21,7 @@ public class VendingMachine {
 			
 			//Set up each column in the 1st (technically 2nd in real life) row
 			items[1][0] = "Extremely Unhealthy Food";
-			items[1][1] = "Totally Radical Healthy Food That's Extremely Small";
+			items[1][1] = "Totally Radical Healthy Food";
 			
 		//End of items
 		price = new double[2][2];
