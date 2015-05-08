@@ -8,14 +8,7 @@ public class Student {
 	String name;
 	String[] courses;
 	double[][] gradingScale;
-	Student()
-	{
-		name = " ";
-		age = 16;
-		gradeLevel = 10;
-		courses = new String[7];
-		gradingScale = new double[7][2];
-	}
+	
 	Student(String n, int a, int gradeLvl)
 	{
 		name = n;
