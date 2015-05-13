@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.params=
+comment0.target=SketchPad()
+comment1.params=gg
+comment1.target=void\ paintComponent(java.awt.Graphics)
+comment2.params=color
+comment2.target=void\ setColor(java.awt.Color)
+comment3.params=width
+comment3.target=void\ setPenWidth(int)
+comment4.params=x1\ x2\ x3\ x4\ color\ width
+comment4.target=void\ drawLine(double,\ double,\ double,\ double,\ java.awt.Color,\ int)
+comment5.params=str\ x1\ x2\ color
+comment5.target=void\ drawString(java.lang.String,\ double,\ double,\ java.awt.Color)
+comment6.params=x
+comment6.target=double\ adjustX(double)
+comment7.params=y
+comment7.target=double\ adjustY(double)
+comment8.params=x
+comment8.target=int\ round(double)
+numComments=9

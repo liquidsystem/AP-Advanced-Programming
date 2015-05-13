@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Rectangle()
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Rectangle\r\n
+comment1.params=topLeftX\ topLeftY\ h\ b
+comment1.target=Rectangle(int,\ int,\ double,\ double)
+comment2.params=
+comment2.target=double\ area()
+comment2.text=\r\n\ returns\ the\ area\ of\ the\ Rectangle\r\n
+comment3.params=factor
+comment3.target=void\ StretchBy(int)
+comment4.params=p
+comment4.target=void\ draw(TurtleGraphics.Pen)
+comment5.params=
+comment5.target=java.lang.String\ toString()
+numComments=6
