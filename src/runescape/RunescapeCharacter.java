@@ -83,7 +83,7 @@ public class RunescapeCharacter extends RunescapeConstants {
 	}
 	
 	
-	public static String dataToString() {
+	public String dataToString() {
 		String username = getUser();
 		String stats = getStats();
 		String output = username + stats.toString();
