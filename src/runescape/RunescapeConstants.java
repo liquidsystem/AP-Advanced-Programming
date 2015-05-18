@@ -1,6 +1,8 @@
 package runescape;
 
+import java.io.File;
 import java.lang.Math;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /* Purpose of this class is to show constants in Interfaces
@@ -35,6 +37,10 @@ public abstract class RunescapeConstants {
 	public static double meleeLevel;
 	public static double rangeLevel;
 	public static double magicLevel;
+	
+	static protected File statFile = null;
+	static protected String path = RunescapeCharacter.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+	static protected ArrayList<String> list;
 	
 	public static int maxLevel = 99;
 	

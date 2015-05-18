@@ -1,8 +1,0 @@
-#BlueJ class context
-comment0.params=p
-comment0.target=SketchPadWindow(SketchPad)
-comment1.params=width\ height
-comment1.target=SketchPadWindow(int,\ int)
-comment2.params=width\ height\ p
-comment2.target=SketchPadWindow(int,\ int,\ SketchPad)
-numComments=3
