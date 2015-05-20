@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 /* Purpose: This class is meant to allow the creation of a RunescapeCharacter and to store it in a text file with BufferedStreams
  * 
  */
@@ -49,6 +51,7 @@ public class RunescapeCharacter extends RunescapeConstants {
 			}
 		}
 		this.checkLevel();
+		this.writeStats();
 	}
 	
 	public void enterCombatSkills(String stat, int value) {
@@ -114,6 +117,17 @@ public class RunescapeCharacter extends RunescapeConstants {
 		}
 		
 		//End of File Creation Segment
+		
+		//Add create/lookup character here !!!
+		createCharacter();
+	}
+	
+	public static void createCharacter() {
+		String tempName = "";
+		int tempAtk = 1, tempStr = 1, tempDef = 1, tempRange = 1, tempMage = 1, tempPrayer = 1, tempHP = 10;
+		String input = "";
+		tempName = JOptionPane.showInputDialog("Enter your username");
+		
 	}
 	
 	/** Writes to the stats.txt file, with the given information of the object.
