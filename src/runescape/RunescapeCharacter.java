@@ -28,26 +28,10 @@ public class RunescapeCharacter extends RunescapeConstants {
 		name = n;
 		int j = stats.size();
 		for(int i = 0; i < j; i++) {
-			if(statLevels.size() < NUM_OF_COMBAT) {
-				j = statLevels.size();
-				System.out.println("Array passed to character is less than the total amount of combat skills! (This isn't a problem, just don't go passed the amount we entered!");
-				if(combatNames[i].isEmpty()) {
-					break;
-				}
-				else {
-					stats.put(combatNames[i].toLowerCase(), statLevels.get(i));
-				}
-			}
-			else if(statLevels.size() > NUM_OF_COMBAT) {
-				System.out.println("Array passed to stats is greater than the total combat skills! (This is VERY BAD, DO SOMETHING ABOUT IT");
-				throw new Throwable("Invalid amount of allowed arguments for stats");
-			}
-			else {
-				//System.out.println("Array is passed the same amount of arguments as the allowed combat skills! (This is good)");
-				if(stats.containsKey(combatNames[i].toLowerCase())) {
-					stats.put(combatNames[i].toLowerCase(), statLevels.get(i));
-					//System.out.println(stats.get(combatNames[i].toLowerCase()));
-				}
+			//System.out.println("Array is passed the same amount of arguments as the allowed combat skills! (This is good)");
+			if(stats.containsKey(combatNames[i].toLowerCase())) {
+				stats.put(combatNames[i].toLowerCase(), statLevels.get(i));
+				//System.out.println(stats.get(combatNames[i].toLowerCase()));
 			}
 		}
 		this.checkLevel();
@@ -127,6 +111,13 @@ public class RunescapeCharacter extends RunescapeConstants {
 		int tempAtk = 1, tempStr = 1, tempDef = 1, tempRange = 1, tempMage = 1, tempPrayer = 1, tempHP = 10;
 		String input = "";
 		tempName = JOptionPane.showInputDialog("Enter your username");
+		input = JOptionPane.showInputDialog("Enter your level for Attack: ");
+		try {
+			tempAtk = Integer.parseInt(input);
+		}
+		catch(NumberFormatException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -152,12 +143,13 @@ public class RunescapeCharacter extends RunescapeConstants {
 			}
 			while(s.hasNextLine() && (line = s.nextLine()) != null) {
 				if(line.equalsIgnoreCase(info) && s.hasNextLine()) {
-					line = s.nextLine();
 					break;
 				}
 				else if(!line.equalsIgnoreCase(info) && !s.hasNextLine()) {
 					bw.newLine();
 					bw.write(info);
+				}
+				else if(line.equalsIgnoreCase(info) && s.hasNextLine()) {
 					break;
 				}
 			}
@@ -266,7 +258,7 @@ public class RunescapeCharacter extends RunescapeConstants {
 				hp = Integer.parseInt(list.get(i).substring(list.get(i).indexOf("hitpoints=") + "hitpoints=".length(), list.get(i).indexOf("hitpoints=") + "hitpoints=".length() + 1));
 			}
 			
-			System.out.println("Character Name: " + name + "\n" + 
+			JOptionPane.showMessageDialog(null,"Character Name: " + name + "\n" + 
 			"Stats" + "\n"
 			+ "-----------------------" + "\n"
 			+ "| Attack: " + atk + "\n" 

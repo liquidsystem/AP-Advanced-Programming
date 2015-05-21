@@ -15,9 +15,6 @@ public abstract class RunescapeConstants {
 	
 	public static double finalLevel = 3;
 	
-	public final static int NUM_OF_COMBAT = 7;
-	
-	
 	public static String[] combatNames = {"Attack","Strength","Defense","Range","Prayer","Magic","Hitpoints"};
 	
 	public static final float xpGrowth = (float) Math.pow(2, 1/7); //On the RS website, 2^(1/7) is the average growth factor per level
@@ -52,10 +49,6 @@ public abstract class RunescapeConstants {
 		for(int i  = 0; i < stats.size(); i++) {
 			if(this.stats.get(combatNames[i].toLowerCase()) > 99) {
 				System.out.println("Your level can not be over level 99!");
-				break;
-			}
-			if(this.stats.get("hitpoints") < 10) {
-				System.out.println("You cannot have a HITPOINTS level less than 10!");
 				break;
 			}
 		}
