@@ -27,35 +27,57 @@ public class RunescapeUI extends JFrame {
 	private static final long serialVersionUID = -9153255398948721284L;
 	ClassLoader cl = this.getClass().getClassLoader(); 
 	public ImageIcon runescapeLoginIntro = new ImageIcon(cl.getResource("runescape/images/rsLogin.jpg"));  // Get the resource of the rsLogin
+	public ImageIcon rsLgn = new ImageIcon(cl.getResource("runescape/images/rsLogin2.jpg"));
 	JLabel bg = new JLabel(runescapeLoginIntro);
 	JButton loginButton, newAccountButton;
 		
 	
 	public RunescapeUI() {
-		//debugMousePosition(this);
+		debugMousePosition(this);
+		setDefaultLookAndFeelDecorated(false);
+		newAccountButton = new JButton();
+		newAccountButton.setOpaque(true);
+		newAccountButton.setBorderPainted(false);
+		newAccountButton.setContentAreaFilled(true);
+		newAccountButton.setBackground(Color.red);
+		
 		loginButton = new JButton();
 		loginButton.setOpaque(false);
 		loginButton.setBackground(Color.BLACK);
 		loginButton.setBorderPainted(false);
 		loginButton.setContentAreaFilled(false);
-		loginButton.setBounds(393, 309, (533 - 393), (346 - 309));
+		loginButton.setBounds(392, 291, (533 - 392), (346 - 291));
+		newAccountButton.setBounds(235, 292, (369 - 235), (325 - 291));
 		
 		loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
                 //Execute when button is pressed
-                System.out.println("You clicked the button");
+                System.out.println("Registered existing character click...");
+                newAccountButton.setEnabled(false);
+                newAccountButton.setOpaque(false);
+                loginButton.setEnabled(false);
+                bg.setIcon(rsLgn);
+                getContentPane().repaint();
+                
             }
         });
 		
+		newAccountButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Feature disabled");
+			}
+		});
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(765, 540);  // Don't change this! This is the perfect size for the rsLogin picture!
+		setSize(765, 520);  // Don't change this! This is the perfect size for the rsLogin picture!
 		setResizable(false);  // Don't allow the frame to be resized, we don't want it to distort the login picture
 		getContentPane().add(loginButton);
+		getContentPane().add(newAccountButton);
 		getContentPane().add(bg);  // Add the runescape login picture to the frame
 		setComponentZOrder(loginButton, 0);
+		setComponentZOrder(newAccountButton, 0);
 		setComponentZOrder(bg, 1);
-		repaint();
 	}
 	
 	/** Debug frame for getting the mouse information. Not intended to have in final project.
