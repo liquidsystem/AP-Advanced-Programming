@@ -109,6 +109,9 @@ public class RunescapeUI extends JFrame {
 					if(lookUp.getText().contains(" ")) {
 						System.out.println("No spaces are allowed!");
 					}
+					else if(lookUp.getText().isEmpty()) {
+						System.out.println("You need text here!");
+					}
 					else {
 						System.out.println("Text in box: " + lookUp.getText().toString());
 						try {

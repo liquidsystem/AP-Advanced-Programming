@@ -195,16 +195,25 @@ public class RunescapeCharacter extends RunescapeConstants {
 	public static void readStats(String text) throws Throwable {
 		try {
 			Scanner s = new Scanner(new File(getPath() + "stats.txt"));
-			String data = "";
+			String data = null;
 			String line = null;
 			while(s.hasNextLine() && (line = s.nextLine()) != null) {
 				if(line.toLowerCase().contains(text)) {
 					data = line;
+					break;
+				}
+				else {
+					data = null;
 				}
 			}
-			System.out.println(data);
-			parseStats(data);
-			s.close();
+			if(data == null) {
+				JOptionPane.showMessageDialog(null, "No user was found!");
+			}
+			else {
+				System.out.println(data);
+				parseStats(data);
+				s.close();
+			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
