@@ -6,18 +6,24 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javafx.scene.input.KeyCode;
+
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 
 public class RunescapeUI extends JFrame {
 
@@ -27,19 +33,35 @@ public class RunescapeUI extends JFrame {
 	private static final long serialVersionUID = -9153255398948721284L;
 	ClassLoader cl = this.getClass().getClassLoader(); 
 	public ImageIcon runescapeLoginIntro = new ImageIcon(cl.getResource("runescape/images/rsLogin.jpg"));  // Get the resource of the rsLogin
-	public ImageIcon rsLgn = new ImageIcon(cl.getResource("runescape/images/rsLogin2.jpg"));
+	public ImageIcon rsLgn = new ImageIcon(cl.getResource("runescape/images/rsLogin2.png"));
 	JLabel bg = new JLabel(runescapeLoginIntro);
-	JButton loginButton, newAccountButton;
+	JButton loginButton, newAccountButton, searchButton;
+	JTextField lookUp;
 		
 	
 	public RunescapeUI() {
-		debugMousePosition(this);
+		//debugMousePosition(this);
 		setDefaultLookAndFeelDecorated(false);
+		lookUp = new JTextField();
+		searchButton = new JButton();
+		searchButton.setOpaque(false);
+		searchButton.setBackground(Color.BLACK);
+		searchButton.setBorderPainted(false);
+		searchButton.setContentAreaFilled(false);
+		searchButton.setVisible(false);
+		searchButton.setBounds(331, 326, (456 - 331), (351 - 326));
+		
+		lookUp.setBounds(339, 235, (469 - 339), (260 - 241));
+		lookUp.setBackground(Color.darkGray);
+		lookUp.setForeground(Color.white);
+		lookUp.setBorder(BorderFactory.createEmptyBorder());
+		lookUp.setVisible(false);
+		lookUp.requestFocus();
 		newAccountButton = new JButton();
 		newAccountButton.setOpaque(true);
 		newAccountButton.setBorderPainted(false);
 		newAccountButton.setContentAreaFilled(true);
-		newAccountButton.setBackground(Color.red);
+		newAccountButton.setBackground(Color.darkGray.brighter());
 		
 		loginButton = new JButton();
 		loginButton.setOpaque(false);
@@ -58,10 +80,48 @@ public class RunescapeUI extends JFrame {
                 newAccountButton.setOpaque(false);
                 loginButton.setEnabled(false);
                 bg.setIcon(rsLgn);
-                getContentPane().repaint();
+                lookUp.setVisible(true);
+                searchButton.setVisible(true);
                 
             }
         });
+		lookUp.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				int key = e.getKeyCode();
+				if(key == KeyEvent.VK_ENTER) {
+						try {
+							RunescapeCharacter.readStats(lookUp.getText().toLowerCase().toString());
+						} catch (Throwable e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						lookUp.setText("");
+				}
+			}
+		});
+		searchButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Ayy!");
+				if(lookUp.getText().isEmpty()) {
+					System.out.println("There should be text here!");
+				}
+				else {
+					if(lookUp.getText().contains(" ")) {
+						System.out.println("No spaces are allowed!");
+					}
+					else {
+						System.out.println("Text in box: " + lookUp.getText().toString());
+						try {
+							RunescapeCharacter.readStats(lookUp.getText().toLowerCase().toString());
+							lookUp.setText("");
+						} catch (Throwable e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				}
+			}
+		});
 		
 		newAccountButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -74,8 +134,12 @@ public class RunescapeUI extends JFrame {
 		setResizable(false);  // Don't allow the frame to be resized, we don't want it to distort the login picture
 		getContentPane().add(loginButton);
 		getContentPane().add(newAccountButton);
+		getContentPane().add(lookUp);
 		getContentPane().add(bg);  // Add the runescape login picture to the frame
+		getContentPane().add(searchButton);
+		setComponentZOrder(searchButton, 0);
 		setComponentZOrder(loginButton, 0);
+		setComponentZOrder(lookUp, 0);
 		setComponentZOrder(newAccountButton, 0);
 		setComponentZOrder(bg, 1);
 	}
