@@ -3,6 +3,7 @@ package runescape;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -36,6 +37,20 @@ public class RunescapeCharacter extends RunescapeConstants {
 		}
 		this.checkLevel();
 		this.writeStats();
+	}
+	
+	RunescapeCharacter(String n, ArrayList<Integer> statLevels, boolean existingAccount) throws Throwable {
+		super();
+		name = n;
+		int j = stats.size();
+		for(int i = 0; i < j; i++) {
+			//System.out.println("Array is passed the same amount of arguments as the allowed combat skills! (This is good)");
+			if(stats.containsKey(combatNames[i].toLowerCase())) {
+				stats.put(combatNames[i].toLowerCase(), statLevels.get(i));
+				//System.out.println(stats.get(combatNames[i].toLowerCase()));
+			}
+		}
+		this.checkLevel();
 	}
 	
 	public void enterCombatSkills(String stat, int value) {
@@ -87,7 +102,7 @@ public class RunescapeCharacter extends RunescapeConstants {
 		// TODO Auto-generated method stub
 		try {
 			//Get information from here and store it
-			statFile = new File(path + "stats.txt");
+			statFile = new File(getPath() + "stats.txt");
 			if(statFile.isFile() && !statFile.isDirectory()) {
 				System.out.println("This already exists..");
 			}
@@ -102,24 +117,9 @@ public class RunescapeCharacter extends RunescapeConstants {
 		
 		//End of File Creation Segment
 		
-		//Add create/lookup character here !!!
-		createCharacter();
+		//Add lookup character here !!!
 	}
 	
-	public static void createCharacter() {
-		String tempName = "";
-		int tempAtk = 1, tempStr = 1, tempDef = 1, tempRange = 1, tempMage = 1, tempPrayer = 1, tempHP = 10;
-		String input = "";
-		tempName = JOptionPane.showInputDialog("Enter your username");
-		input = JOptionPane.showInputDialog("Enter your level for Attack: ");
-		try {
-			tempAtk = Integer.parseInt(input);
-		}
-		catch(NumberFormatException e) {
-			e.printStackTrace();
-		}
-		
-	}
 	
 	/** Writes to the stats.txt file, with the given information of the object.
 	 * @throws Throwable 
@@ -192,6 +192,114 @@ public class RunescapeCharacter extends RunescapeConstants {
 		}
 	}
 	
+	public static void readStats(String text) throws Throwable {
+		try {
+			Scanner s = new Scanner(new File(getPath() + "stats.txt"));
+			String data = null;
+			String line = null;
+			while(s.hasNextLine() && (line = s.nextLine()) != null) {
+				if(line.toLowerCase().contains(text)) {
+					data = line;
+					break;
+				}
+				else {
+					data = null;
+				}
+			}
+			if(data == null) {
+				JOptionPane.showMessageDialog(null, "No user was found!");
+			}
+			else {
+				System.out.println(data);
+				parseStats(data);
+				s.close();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private static void parseStats(String data) throws Throwable {
+		// TODO Auto-generated method stub
+		String name = "Test";
+		int atk = 1;
+		int str = 1;
+		int def = 1;
+		int range = 1;
+		int pray = 1;
+		int mage = 1;
+		int hp = 10;
+		name = data.substring(0, data.indexOf("{"));
+		
+		/* Start of long try-catch for each stat, no point in reading this, as this was the only way I could find to properly parse the information that I had
+		 * Starting with Attack */
+		try {
+			atk = Integer.parseInt(data.substring(data.indexOf("attack=") + "attack=".length(), data.indexOf("attack=") + "attack=".length() + 2));
+		}
+		catch(NumberFormatException e) {
+			atk = Integer.parseInt(data.substring(data.indexOf("attack=") + "attack=".length(), data.indexOf("attack=") + "attack=".length() + 1));
+		}
+		
+		try {
+			str = Integer.parseInt(data.substring(data.indexOf("strength=") + "strength=".length(), data.indexOf("strength=") + "strength=".length() + 2));
+		}
+		catch(NumberFormatException e) {
+			str = Integer.parseInt(data.substring(data.indexOf("strength=") + "strength=".length(), data.indexOf("strength=") + "strength=".length() + 1));
+		}
+		
+		try {
+			def = Integer.parseInt(data.substring(data.indexOf("defense=") + "defense=".length(), data.indexOf("defense=") + "defense=".length() + 2));
+		}
+		catch(NumberFormatException e) {
+			def = Integer.parseInt(data.substring(data.indexOf("defense=") + "defense=".length(), data.indexOf("defense=") + "defense=".length() + 1));
+		}
+		
+		try {
+			range = Integer.parseInt(data.substring(data.indexOf("range=") + "range=".length(), data.indexOf("range=") + "range=".length() + 2));
+		}
+		catch(NumberFormatException e) {
+			range = Integer.parseInt(data.substring(data.indexOf("range=") + "range=".length(), data.indexOf("range=") + "range=".length() + 1));
+		}
+		
+		try {
+			pray = Integer.parseInt(data.substring(data.indexOf("prayer=") + "prayer=".length(), data.indexOf("prayer=") + "prayer=".length() + 2));
+		}
+		catch(NumberFormatException e) {
+			pray = Integer.parseInt(data.substring(data.indexOf("prayer=") + "prayer=".length(), data.indexOf("prayer=") + "prayer=".length() + 1));
+		}
+		
+		try {
+			mage = Integer.parseInt(data.substring(data.indexOf("magic=") + "magic=".length(), data.indexOf("magic=") + "magic=".length() + 2));
+		}
+		catch(NumberFormatException e) {
+			mage = Integer.parseInt(data.substring(data.indexOf("magic=") + "magic=".length(), data.indexOf("magic=") + "magic=".length() + 1));
+		}
+		
+		try {
+			hp = Integer.parseInt(data.substring(data.indexOf("hitpoints=") + "hitpoints=".length(), data.indexOf("hitpoints=") + "hitpoints=".length() + 2));
+		}
+		catch(NumberFormatException e) {
+			hp = Integer.parseInt(data.substring(data.indexOf("hitpoints=") + "hitpoints=".length(), data.indexOf("hitpoints=") + "hitpoints=".length() + 1));
+		}
+		
+		RunescapeCharacter temp = new RunescapeCharacter(name,  new ArrayList<Integer>(Arrays.asList(atk,str,def,range,pray,mage,hp)), true);
+		String combatLevel = temp.getCombatLevel();
+		
+		JOptionPane.showMessageDialog(null,"Character Name: " + name + "\n" + 
+				"Stats" + "\n"
+				+ "-----------------------" + "\n"
+				+ "| Attack: " + atk + "\n" 
+				+ "| Strength: " + str + "\n" 
+				+ "| Defense: " + def + "\n" 
+				+ "| Range: " + range + "\n" 
+				+ "| Prayer: " + pray + "\n"
+				+ "| Magic: " + mage + "\n"
+				+ "| Hitpoints: " + hp + "\n"
+				+ "| " + combatLevel.trim() + "\n"
+				+ "-----------------------" + "\n");
+	}
+
 	/** Parse the information that we found in the file, and makes a new RunescapeCharacter from the information found on each line.
 	 * @throws Throwable - NumberFormatException: if the input that is passed is unable to be parsed to an integer, it'll go ahead and search 1 space less than the previous search
 	 */
@@ -271,6 +379,8 @@ public class RunescapeCharacter extends RunescapeConstants {
 			+ "-----------------------" + "\n");
 		}
 	}
+
+
 	
 	
 }
