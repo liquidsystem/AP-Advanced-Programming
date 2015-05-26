@@ -49,7 +49,7 @@ public class RunescapeUI extends JFrame {
 		searchButton.setBounds(331, 326, (456 - 331), (351 - 326));
 		lookUp.setBounds(341, 256, (467 - 341), (280 - 260));
 		loginButton.setBounds(396, 309, (531 - 396), (343 - 311));
-		newAccountButton.setBounds(234, 310, (370 - 234), (345 - 310));
+		newAccountButton.setBounds(236, 305, (370 - 236), (335 - 305));
 		
 		lookUp.setBackground(Color.darkGray);
 		lookUp.setForeground(Color.white);
@@ -138,6 +138,7 @@ public class RunescapeUI extends JFrame {
 		getContentPane().add(lookUp);
 		getContentPane().add(bg);  // Add the runescape login picture to the frame
 		getContentPane().add(searchButton);
+		bg.setSize(this.getSize().width, this.getSize().height);
 		setComponentZOrder(searchButton, 0);
 		setComponentZOrder(loginButton, 0);
 		setComponentZOrder(lookUp, 0);
