@@ -32,36 +32,42 @@ public class RunescapeUI extends JFrame {
 		
 	
 	public RunescapeUI() {
-		//debugMousePosition(this);
+		debugMousePosition(this);
 		setDefaultLookAndFeelDecorated(false);
 		lookUp = new JTextField();
+		loginButton = new JButton();
 		searchButton = new JButton();
+		newAccountButton = new JButton();
+		
+		
 		searchButton.setOpaque(false);
 		searchButton.setBackground(Color.BLACK);
 		searchButton.setBorderPainted(false);
 		searchButton.setContentAreaFilled(false);
 		searchButton.setVisible(false);
-		searchButton.setBounds(331, 326, (456 - 331), (351 - 326));
 		
-		lookUp.setBounds(339, 235, (469 - 339), (260 - 241));
+		searchButton.setBounds(331, 326, (456 - 331), (351 - 326));
+		lookUp.setBounds(341, 256, (467 - 341), (280 - 260));
+		loginButton.setBounds(396, 309, (531 - 396), (343 - 311));
+		newAccountButton.setBounds(234, 310, (370 - 234), (345 - 310));
+		
 		lookUp.setBackground(Color.darkGray);
 		lookUp.setForeground(Color.white);
 		lookUp.setBorder(BorderFactory.createEmptyBorder());
 		lookUp.setVisible(false);
 		lookUp.requestFocus();
-		newAccountButton = new JButton();
+		
 		newAccountButton.setOpaque(true);
 		newAccountButton.setBorderPainted(false);
 		newAccountButton.setContentAreaFilled(true);
 		newAccountButton.setBackground(Color.darkGray.brighter());
 		
-		loginButton = new JButton();
+		
 		loginButton.setOpaque(false);
 		loginButton.setBackground(Color.BLACK);
 		loginButton.setBorderPainted(false);
 		loginButton.setContentAreaFilled(false);
-		loginButton.setBounds(392, 291, (533 - 392), (346 - 291));
-		newAccountButton.setBounds(235, 292, (369 - 235), (325 - 291));
+		
 		
 		loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
@@ -125,7 +131,7 @@ public class RunescapeUI extends JFrame {
 		});
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(765, 520);  // Don't change this! This is the perfect size for the rsLogin picture!
+		setSize(765, 540);  // Don't change this! This is the perfect size for the rsLogin picture!
 		setResizable(false);  // Don't allow the frame to be resized, we don't want it to distort the login picture
 		getContentPane().add(loginButton);
 		getContentPane().add(newAccountButton);
@@ -144,6 +150,7 @@ public class RunescapeUI extends JFrame {
 	 */
 	private static void debugMousePosition(JFrame frame) {
 		JFrame box = new JFrame("Mouse Position");
+		box.setAlwaysOnTop(true);
 		box.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		box.setLocation(frame.getX() + 800,frame.getY());
 		box.setSize(300, 100);
