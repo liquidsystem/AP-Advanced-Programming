@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 public class RunescapeUI extends JFrame {
 
@@ -29,11 +30,13 @@ public class RunescapeUI extends JFrame {
 	JLabel bg = new JLabel(runescapeLoginIntro);
 	JButton loginButton, newAccountButton, searchButton;
 	JTextField lookUp;
+	final int height = 540;
+	final int width = 765;
 		
 	
 	public RunescapeUI() {
 		debugMousePosition(this);
-		setDefaultLookAndFeelDecorated(false);
+		setDefaultLookAndFeelDecorated(true);
 		lookUp = new JTextField();
 		loginButton = new JButton();
 		searchButton = new JButton();
@@ -46,10 +49,10 @@ public class RunescapeUI extends JFrame {
 		searchButton.setContentAreaFilled(false);
 		searchButton.setVisible(false);
 		
-		searchButton.setBounds(331, 326, (456 - 331), (351 - 326));
+		searchButton.setBounds(width - 434, height - 214, (456 - 331), (351 - 326));
 		lookUp.setBounds(341, 256, (467 - 341), (280 - 260));
 		loginButton.setBounds(396, 309, (531 - 396), (343 - 311));
-		newAccountButton.setBounds(236, 305, (370 - 236), (335 - 305));
+		newAccountButton.setBounds(width - 529, 310, 135, 35);
 		
 		lookUp.setBackground(Color.darkGray);
 		lookUp.setForeground(Color.white);
@@ -61,7 +64,6 @@ public class RunescapeUI extends JFrame {
 		newAccountButton.setBorderPainted(false);
 		newAccountButton.setContentAreaFilled(true);
 		newAccountButton.setBackground(Color.darkGray.brighter());
-		
 		
 		loginButton.setOpaque(false);
 		loginButton.setBackground(Color.BLACK);
@@ -131,7 +133,7 @@ public class RunescapeUI extends JFrame {
 		});
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(765, 540);  // Don't change this! This is the perfect size for the rsLogin picture!
+		setSize(width, height);  // Don't change this! This is the perfect size for the rsLogin picture!
 		setResizable(false);  // Don't allow the frame to be resized, we don't want it to distort the login picture
 		getContentPane().add(loginButton);
 		getContentPane().add(newAccountButton);
@@ -173,6 +175,12 @@ public class RunescapeUI extends JFrame {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}
+		catch(Throwable e) {
+			e.printStackTrace();
+		}
 		SwingUtilities.invokeLater(new Runnable() {
 
 	           @Override
