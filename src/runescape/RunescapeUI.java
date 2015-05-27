@@ -77,6 +77,7 @@ public class RunescapeUI extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(width, height);  // Don't change this! This is the perfect size for the rsLogin picture!
+		setBounds(0,0, width, height);
 		setResizable(false);  // Don't allow the frame to be resized, we don't want it to distort the login picture
 		getContentPane().add(loginButton);
 		getContentPane().add(newAccountButton);
