@@ -36,37 +36,8 @@ public class RunescapeCharacter extends RunescapeConstants {
 			}
 		}
 		this.checkLevel();
-		this.writeStats();
 	}
 	
-	RunescapeCharacter(String n, ArrayList<Integer> statLevels, boolean existingAccount) throws Throwable {
-		super();
-		name = n;
-		int j = stats.size();
-		for(int i = 0; i < j; i++) {
-			//System.out.println("Array is passed the same amount of arguments as the allowed combat skills! (This is good)");
-			if(stats.containsKey(combatNames[i].toLowerCase())) {
-				stats.put(combatNames[i].toLowerCase(), statLevels.get(i));
-				//System.out.println(stats.get(combatNames[i].toLowerCase()));
-			}
-		}
-		this.checkLevel();
-	}
-	
-	public void enterCombatSkills(String stat, int value) {
-		if(super.stats.containsKey(stat)) {
-			super.stats.put(stat, value);
-		}
-		else {
-			System.out.println("This stat does not exist... Possible options are 'attack', 'strength', 'defense', 'range', 'magic', and 'prayer'!");
-		}
-	}
-	
-	public void enterCombatSkills(ArrayList<Integer> combats) {
-		for(int i = 0; i < this.stats.size(); i++) {
-			super.stats.put(combatNames[i].toLowerCase(), combats.get(i));
-		}
-	}
 	
 	public String getCombatLevel() {
 		String output = "";
@@ -117,7 +88,6 @@ public class RunescapeCharacter extends RunescapeConstants {
 		
 		//End of File Creation Segment
 		
-		//Add lookup character here !!!
 	}
 	
 	
@@ -283,7 +253,7 @@ public class RunescapeCharacter extends RunescapeConstants {
 			hp = Integer.parseInt(data.substring(data.indexOf("hitpoints=") + "hitpoints=".length(), data.indexOf("hitpoints=") + "hitpoints=".length() + 1));
 		}
 		
-		RunescapeCharacter temp = new RunescapeCharacter(name,  new ArrayList<Integer>(Arrays.asList(atk,str,def,range,pray,mage,hp)), true);
+		RunescapeCharacter temp = new RunescapeCharacter(name, new ArrayList<Integer>(Arrays.asList(atk,str,def,range,pray,mage,hp)));
 		String combatLevel = temp.getCombatLevel();
 		
 		JOptionPane.showMessageDialog(null,"Character Name: " + name + "\n" + 
