@@ -2,6 +2,7 @@ package runescape;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -72,6 +73,8 @@ public class RunescapeUI extends JFrame {
 		loginButton.setBorderPainted(false);
 		loginButton.setContentAreaFilled(false);
 		
+		pack();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(width, height);  // Don't change this! This is the perfect size for the rsLogin picture!
 		setResizable(false);  // Don't allow the frame to be resized, we don't want it to distort the login picture
@@ -86,8 +89,9 @@ public class RunescapeUI extends JFrame {
 		setComponentZOrder(lookUp, 0);
 		setComponentZOrder(newAccountButton, 0);
 		setComponentZOrder(bg, 1);
+		Dimension lel = new Dimension(width, height);
+		setMaximumSize(lel);
 		
-		pack();
 		
 		loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
