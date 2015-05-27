@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -55,7 +56,9 @@ public class RunescapeUI extends JFrame {
 		searchButton.setBounds(width - 434, height - 214, (456 - 331), (351 - 326));
 		lookUp.setBounds(341, 256, (467 - 341), (280 - 260));
 		loginButton.setBounds(396, 309, (531 - 396), (343 - 311));
-		newAccountButton.setBounds(width - 529, height - 230, 135, 35);
+		newAccountButton.setLocation(width - 529, height - 230);
+		newAccountButton.setSize(135, 35);
+		//newAccountButton.setBounds(width - 529, height - 230, 135, 35);
 		
 		lookUp.setBackground(Color.darkGray);
 		lookUp.setForeground(Color.white);
@@ -73,11 +76,8 @@ public class RunescapeUI extends JFrame {
 		loginButton.setBorderPainted(false);
 		loginButton.setContentAreaFilled(false);
 		
-		pack();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(width, height);  // Don't change this! This is the perfect size for the rsLogin picture!
-		setBounds(0,0, width, height);
 		setResizable(false);  // Don't allow the frame to be resized, we don't want it to distort the login picture
 		getContentPane().add(loginButton);
 		getContentPane().add(newAccountButton);
@@ -90,9 +90,8 @@ public class RunescapeUI extends JFrame {
 		setComponentZOrder(lookUp, 0);
 		setComponentZOrder(newAccountButton, 0);
 		setComponentZOrder(bg, 1);
-		Dimension lel = new Dimension(width, height);
-		setMaximumSize(lel);
-		
+		setPreferredSize(new Dimension(width, height));
+		setSize(width, height);  // Don't change this! This is the perfect size for the rsLogin picture!
 		
 		loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
@@ -162,15 +161,15 @@ public class RunescapeUI extends JFrame {
 	 * @param frame
 	 */
 	private static void debugMousePosition(JFrame frame) {
-		JFrame box = new JFrame("Mouse Position");
+		final JFrame box = new JFrame("Mouse Position");
 		box.setAlwaysOnTop(true);
 		box.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		box.setLocation(frame.getX() + 800,frame.getY());
 		box.setSize(300, 100);
 		box.setLayout(new GridLayout(1,2));
 		box.setVisible(true);
-		JLabel X = new JLabel();
-		JLabel Y = new JLabel();
+		final JLabel X = new JLabel();
+		final JLabel Y = new JLabel();
 		frame.addMouseMotionListener(new MouseAdapter() {
 			public void mouseMoved(MouseEvent me) {
 				X.setText(String.valueOf("X Position: " + me.getX()));
@@ -193,7 +192,6 @@ public class RunescapeUI extends JFrame {
 		}
 		SwingUtilities.invokeLater(new Runnable() {
 
-	           @Override
 	           public void run() {
 	              new RunescapeUI().setVisible(true);
 	           }
