@@ -1,6 +1,7 @@
 package runescape;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,6 +36,7 @@ public class RunescapeUI extends JFrame {
 		
 	
 	public RunescapeUI() {
+		
 		debugMousePosition(this);
 		setDefaultLookAndFeelDecorated(true);
 		lookUp = new JTextField();
@@ -52,7 +54,7 @@ public class RunescapeUI extends JFrame {
 		searchButton.setBounds(width - 434, height - 214, (456 - 331), (351 - 326));
 		lookUp.setBounds(341, 256, (467 - 341), (280 - 260));
 		loginButton.setBounds(396, 309, (531 - 396), (343 - 311));
-		newAccountButton.setBounds(width - 529, height - 230, (width / 5), height / 15);
+		newAccountButton.setBounds(width - 529, height - 230, 135, 35);
 		
 		lookUp.setBackground(Color.darkGray);
 		lookUp.setForeground(Color.white);
@@ -70,6 +72,22 @@ public class RunescapeUI extends JFrame {
 		loginButton.setBorderPainted(false);
 		loginButton.setContentAreaFilled(false);
 		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(width, height);  // Don't change this! This is the perfect size for the rsLogin picture!
+		setResizable(false);  // Don't allow the frame to be resized, we don't want it to distort the login picture
+		getContentPane().add(loginButton);
+		getContentPane().add(newAccountButton);
+		getContentPane().add(lookUp);
+		getContentPane().add(bg);  // Add the runescape login picture to the frame
+		getContentPane().add(searchButton);
+		bg.setSize(this.getSize().width, this.getSize().height);
+		setComponentZOrder(searchButton, 0);
+		setComponentZOrder(loginButton, 0);
+		setComponentZOrder(lookUp, 0);
+		setComponentZOrder(newAccountButton, 0);
+		setComponentZOrder(bg, 1);
+		
+		pack();
 		
 		loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
@@ -77,12 +95,12 @@ public class RunescapeUI extends JFrame {
                 //Execute when button is pressed
                 System.out.println("Registered existing character click...");
                 newAccountButton.setEnabled(false);
+                newAccountButton.setVisible(false);
                 newAccountButton.setOpaque(false);
                 loginButton.setEnabled(false);
                 bg.setIcon(rsLgn);
                 lookUp.setVisible(true);
                 searchButton.setVisible(true);
-                
             }
         });
 		lookUp.addKeyListener(new KeyAdapter() {
@@ -132,20 +150,7 @@ public class RunescapeUI extends JFrame {
 			}
 		});
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(width, height);  // Don't change this! This is the perfect size for the rsLogin picture!
-		setResizable(false);  // Don't allow the frame to be resized, we don't want it to distort the login picture
-		getContentPane().add(loginButton);
-		getContentPane().add(newAccountButton);
-		getContentPane().add(lookUp);
-		getContentPane().add(bg);  // Add the runescape login picture to the frame
-		getContentPane().add(searchButton);
-		bg.setSize(this.getSize().width, this.getSize().height);
-		setComponentZOrder(searchButton, 0);
-		setComponentZOrder(loginButton, 0);
-		setComponentZOrder(lookUp, 0);
-		setComponentZOrder(newAccountButton, 0);
-		setComponentZOrder(bg, 1);
+		
 	}
 	
 	/** Debug frame for getting the mouse information. Not intended to have in final project.
