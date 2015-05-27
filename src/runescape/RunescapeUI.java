@@ -52,7 +52,7 @@ public class RunescapeUI extends JFrame {
 		searchButton.setBounds(width - 434, height - 214, (456 - 331), (351 - 326));
 		lookUp.setBounds(341, 256, (467 - 341), (280 - 260));
 		loginButton.setBounds(396, 309, (531 - 396), (343 - 311));
-		newAccountButton.setBounds(width - 529, 310, 135, 35);
+		newAccountButton.setBounds(width - 529, height - 230, (width / 5), height / 15);
 		
 		lookUp.setBackground(Color.darkGray);
 		lookUp.setForeground(Color.white);
