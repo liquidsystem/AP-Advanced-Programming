@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -20,6 +21,14 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+
+/* Currently testing to see if screen DPI is going to cause an issue with the program... How could I fix it?
+ * Personal notes:
+ * Laptop - 144DPI, 1920x1080
+ * Desktop -
+ * School Computer - 
+ * 
+ */
 
 public class RunescapeUI extends JFrame {
 
@@ -38,7 +47,7 @@ public class RunescapeUI extends JFrame {
 		
 	
 	public RunescapeUI() {
-		
+		debugScreenResolution();
 		debugMousePosition(this);
 		setDefaultLookAndFeelDecorated(true);
 		lookUp = new JTextField();
@@ -153,6 +162,25 @@ public class RunescapeUI extends JFrame {
 				System.out.println("Feature disabled");
 			}
 		});
+		
+		
+	}
+	
+	private static void debugScreenResolution() {
+		final JFrame box = new JFrame("Screen Res.");
+		box.setAlwaysOnTop(true);
+		box.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		box.setSize(600, 100);
+		box.setLayout(new GridLayout(1,3));
+		box.setVisible(true);
+		int screenRes = Toolkit.getDefaultToolkit().getScreenResolution();
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		JLabel wid = new JLabel("Width: " + String.valueOf(screenSize.getWidth()));
+		JLabel hei = new JLabel("Height: " + String.valueOf(screenSize.getHeight()));
+		JLabel res = new JLabel("Resolution: " + String.valueOf(screenRes));
+		box.add(wid);
+		box.add(hei);
+		box.add(res);
 		
 		
 	}
