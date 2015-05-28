@@ -3,6 +3,10 @@ package runescape;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.DisplayMode;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
@@ -18,6 +22,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -25,8 +30,9 @@ import javax.swing.UIManager;
 /* Currently testing to see if screen DPI is going to cause an issue with the program... How could I fix it?
  * Personal notes:
  * Laptop - 144DPI, 1920x1080
- * Desktop -
- * School Computer - 
+ * Desktop - 96DPI, 1920x1080
+ * 8 pixel difference on the Y axis will set it properly...
+ * 
  * 
  */
 
@@ -40,50 +46,73 @@ public class RunescapeUI extends JFrame {
 	public ImageIcon runescapeLoginIntro = new ImageIcon(cl.getResource("runescape/images/rsLogin.jpg"));  // Get the resource of the rsLogin
 	public ImageIcon rsLgn = new ImageIcon(cl.getResource("runescape/images/rsLogin2.png"));
 	JLabel bg = new JLabel(runescapeLoginIntro);
-	JButton loginButton, newAccountButton, searchButton;
+	JButton loginButton, newAccountButton, searchButton, creditsButton;
 	JTextField lookUp;
-	final int height = 540;
-	final int width = 765;
-		
+	final int offset = getScreenResolution();
+	final int frameWidth = 765;
+	final int frameHeight = 540 - offset;
+	final Dimension dm =  new Dimension(135, 35);
 	
 	public RunescapeUI() {
-		debugScreenResolution();
+		Container content = this;
+		//debugScreenResolution();
 		debugMousePosition(this);
 		setDefaultLookAndFeelDecorated(true);
 		lookUp = new JTextField();
 		loginButton = new JButton();
 		searchButton = new JButton();
 		newAccountButton = new JButton();
+		creditsButton = new JButton();
+		
+		// creditsButton always shown
+		creditsButton.setOpaque(true);
+		creditsButton.setBorderPainted(false);
+		creditsButton.setContentAreaFilled(false);
+		creditsButton.setFocusable(false);
+		
+		creditsButton.setLocation(frameWidth - 756, frameHeight - (38 + offset));
+		creditsButton.setSize(91, 30);
+		
+		// First original display
+		loginButton.setLocation(frameWidth - 370, frameHeight - (231 + offset));
+		loginButton.setSize(dm);
+		
+		newAccountButton.setLocation(frameWidth - 529, frameHeight - (230 + offset));
+		newAccountButton.setSize(dm);
+		
+		// Buttons that show up after you click loginButton
+		searchButton.setLocation(frameWidth - 442, frameHeight - (204 + offset));
+		searchButton.setSize(dm);
+		
+		lookUp.setLocation(frameWidth - 425, frameHeight - (285 + offset));
+		lookUp.setSize(125, 20);
 		
 		
 		searchButton.setOpaque(false);
-		searchButton.setBackground(Color.BLACK);
+		searchButton.setBackground(Color.black);
 		searchButton.setBorderPainted(false);
 		searchButton.setContentAreaFilled(false);
 		searchButton.setVisible(false);
+		searchButton.setFocusable(false);
 		
-		searchButton.setBounds(width - 434, height - 214, (456 - 331), (351 - 326));
-		lookUp.setBounds(341, 256, (467 - 341), (280 - 260));
-		loginButton.setBounds(396, 309, (531 - 396), (343 - 311));
-		newAccountButton.setLocation(width - 529, height - 230);
-		newAccountButton.setSize(135, 35);
-		//newAccountButton.setBounds(width - 529, height - 230, 135, 35);
-		
-		lookUp.setBackground(Color.darkGray);
+		lookUp.setOpaque(true);
+		lookUp.setBackground(new Color(72, 75, 84));
 		lookUp.setForeground(Color.white);
 		lookUp.setBorder(BorderFactory.createEmptyBorder());
 		lookUp.setVisible(false);
-		lookUp.requestFocus();
+		lookUp.setFocusable(true);
 		
-		newAccountButton.setOpaque(true);
+		newAccountButton.setOpaque(false);
 		newAccountButton.setBorderPainted(false);
-		newAccountButton.setContentAreaFilled(true);
-		newAccountButton.setBackground(Color.darkGray.brighter());
+		newAccountButton.setContentAreaFilled(false);
+		newAccountButton.setBackground(Color.black);
+		newAccountButton.setFocusable(false);
 		
 		loginButton.setOpaque(false);
 		loginButton.setBackground(Color.BLACK);
 		loginButton.setBorderPainted(false);
 		loginButton.setContentAreaFilled(false);
+		loginButton.setFocusable(false);
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -93,14 +122,22 @@ public class RunescapeUI extends JFrame {
 		getContentPane().add(lookUp);
 		getContentPane().add(bg);  // Add the runescape login picture to the frame
 		getContentPane().add(searchButton);
+		getContentPane().add(creditsButton);
 		bg.setSize(this.getSize().width, this.getSize().height);
 		setComponentZOrder(searchButton, 0);
 		setComponentZOrder(loginButton, 0);
 		setComponentZOrder(lookUp, 0);
 		setComponentZOrder(newAccountButton, 0);
+		setComponentZOrder(creditsButton, 0);
 		setComponentZOrder(bg, 1);
-		setPreferredSize(new Dimension(width, height));
-		setSize(width, height);  // Don't change this! This is the perfect size for the rsLogin picture!
+		setSize(frameWidth, frameHeight);  // Don't change this! This is the perfect size for the rsLogin picture!
+		
+		creditsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(content, "Credits: " + "\n" 
+			+ "Cameron Kurtz - Lead Developer, only developer.");
+			}
+		});
 		
 		loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
@@ -109,17 +146,19 @@ public class RunescapeUI extends JFrame {
                 System.out.println("Registered existing character click...");
                 newAccountButton.setEnabled(false);
                 newAccountButton.setVisible(false);
-                newAccountButton.setOpaque(false);
                 loginButton.setEnabled(false);
+                loginButton.setVisible(false);
                 bg.setIcon(rsLgn);
+                lookUp.setIgnoreRepaint(true);
                 lookUp.setVisible(true);
+                lookUp.requestFocusInWindow();
                 searchButton.setVisible(true);
             }
         });
 		lookUp.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				int key = e.getKeyCode();
-				if(key == KeyEvent.VK_ENTER) {
+				if(key == KeyEvent.VK_ENTER && !lookUp.getText().isEmpty()) {
 						try {
 							RunescapeCharacter.readStats(lookUp.getText().toLowerCase().toString());
 						} catch (Throwable e1) {
@@ -127,6 +166,7 @@ public class RunescapeUI extends JFrame {
 							e1.printStackTrace();
 						}
 						lookUp.setText("");
+						lookUp.requestFocusInWindow();
 				}
 			}
 		});
@@ -135,6 +175,9 @@ public class RunescapeUI extends JFrame {
 				System.out.println("Ayy!");
 				if(lookUp.getText().isEmpty()) {
 					System.out.println("There should be text here!");
+				}
+				if(lookUp.getText() == null) {
+					System.out.println("They need to  enter text here!");
 				}
 				else {
 					if(lookUp.getText().contains(" ")) {
@@ -159,13 +202,29 @@ public class RunescapeUI extends JFrame {
 		
 		newAccountButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Feature disabled");
+				System.out.println("Character import...");
+				newAccountButton.setEnabled(false);
+                newAccountButton.setVisible(false);
+                loginButton.setEnabled(false);
+                loginButton.setVisible(false);
 			}
 		});
 		
 		
 	}
 	
+	private int getScreenResolution() {
+		int screenResolution = Toolkit.getDefaultToolkit().getScreenResolution();
+		int offset;
+		if(screenResolution == 144) {
+			offset = 0;
+		}
+		else {
+			offset = (144 - screenResolution) / 6;
+		}
+		return offset;
+	}
+
 	private static void debugScreenResolution() {
 		final JFrame box = new JFrame("Screen Res.");
 		box.setAlwaysOnTop(true);
