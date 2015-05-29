@@ -36,6 +36,7 @@ public class RunescapeCharacter extends RunescapeConstants {
 			}
 		}
 		this.checkLevel();
+		this.writeStats();
 	}
 	
 	
@@ -98,6 +99,7 @@ public class RunescapeCharacter extends RunescapeConstants {
 	public void writeStats() throws Throwable {
 		/* Attempt to gather information about statistics and apply them here... */
 		try {
+			createFile();
 			String info = this.dataToString();
 			System.out.println("Information attempting to place: " + info);
 			
@@ -168,12 +170,10 @@ public class RunescapeCharacter extends RunescapeConstants {
 			String data = null;
 			String line = null;
 			while(s.hasNextLine() && (line = s.nextLine()) != null) {
-				if(line.toLowerCase().contains(text)) {
-					data = line;
-					break;
-				}
-				else {
-					data = null;
+				System.out.println(line.substring(0, line.indexOf("{")));
+				if(line.substring(0, line.indexOf("{")).toLowerCase().equals(text)) {
+						data = line;
+						break;
 				}
 			}
 			if(data == null) {

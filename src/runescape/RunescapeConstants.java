@@ -37,7 +37,7 @@ public abstract class RunescapeConstants {
 	public double combatLevel;
 	
 	static public File statFile;
-	private static String path = RunescapeCharacter.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+	public static String path = RunescapeCharacter.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 	protected static ArrayList<String> list;
 	
 	public static int maxLevel = 99;
