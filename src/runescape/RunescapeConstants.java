@@ -1,7 +1,6 @@
 package runescape;
 
 import java.io.File;
-import java.lang.Math;
 import java.util.ArrayList;
 import java.util.HashMap;
 
