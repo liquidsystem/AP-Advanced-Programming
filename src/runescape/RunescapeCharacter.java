@@ -74,7 +74,14 @@ public class RunescapeCharacter extends RunescapeConstants {
 		// TODO Auto-generated method stub
 		try {
 			//Get information from here and store it
-			statFile = new File(getPath() + "stats.txt");
+			System.out.println(getPath());
+			statFolder = new File(getPath(), "/Documents/Runescape");
+			statFile = new File(statFolder.getPath() + "/stats.txt");
+
+			if(!statFolder.exists()) {
+				statFolder.mkdir();
+			}
+			
 			if(statFile.isFile() && !statFile.isDirectory()) {
 				System.out.println("This already exists..");
 			}
@@ -82,6 +89,8 @@ public class RunescapeCharacter extends RunescapeConstants {
 				System.out.println("Ayy this doesn't exist");
 				statFile.createNewFile();
 			}
+			
+			
 		}
 		catch(IOException e) {
 			e.printStackTrace();
@@ -166,7 +175,7 @@ public class RunescapeCharacter extends RunescapeConstants {
 	
 	public static void readStats(String text) throws Throwable {
 		try {
-			Scanner s = new Scanner(new File(getPath() + "stats.txt"));
+			Scanner s = new Scanner(new File(getPath() + "/Documents/Runescape/stats.txt"));
 			String data = null;
 			String line = null;
 			while(s.hasNextLine() && (line = s.nextLine()) != null) {
@@ -186,12 +195,12 @@ public class RunescapeCharacter extends RunescapeConstants {
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
+			System.out.println("File does not exist! Try importing a character first!");
 			e.printStackTrace();
 		}
 	}
 	
 	private static void parseStats(String data) throws Throwable {
-		// TODO Auto-generated method stub
 		String name = "Test";
 		int atk = 1;
 		int str = 1;

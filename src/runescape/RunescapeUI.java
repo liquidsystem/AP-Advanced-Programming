@@ -40,6 +40,7 @@ public class RunescapeUI extends JFrame {
 	ClassLoader cl = this.getClass().getClassLoader(); 
 	public ImageIcon runescapeLoginIntro = new ImageIcon(cl.getResource("runescape/images/rsLogin.jpg"));  // Get the resource of the rsLogin
 	public ImageIcon rsLgn = new ImageIcon(cl.getResource("runescape/images/rsLogin2.png"));
+	public ImageIcon attackImg, strengthImg, defenseImg, rangeImg, prayerImg, magicImg, hpImg;
 	JLabel bg = new JLabel(runescapeLoginIntro);
 	JButton loginButton, newAccountButton, searchButton, creditsButton;
 	JTextField lookUp;
@@ -264,8 +265,11 @@ public class RunescapeUI extends JFrame {
 		
 	}
 	
+	public void getAssets() {
+		
+	}
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		}
